@@ -26,6 +26,8 @@ int main(){
         }
         cout << '\n';
     }
+    cout << '\n';
+
     cout << "배열 P 출력" << "\n";
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
@@ -33,6 +35,10 @@ int main(){
         }
         cout << '\n';
     }
+    cout << '\n';
+
+    cout << "v5 -> v3로 가는 최단경로 상에 있는 vertices" << '\n';
+    path(4, 2, P);
 
     return 0;
 }
@@ -44,16 +50,18 @@ void floyd2(int n, const int W[][5], int D[][5], int P[][5]){
             P[i][j] = 0;
         }
     }
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
+    for(i = 0; i < n; i++){
+        for(j = 0; j < n; j++){
             D[i][j] = W[i][j];
         }
     }
     for(k = 0; k < n; k++){
-        for(j = 0; j < n; j++){
-            if(D[i][k] + D[k][j] < D[i][j]){
-                P[i][j] = k;
-                D[i][j] = D[i][k] + D[k][j];
+        for(i = 0; i < n; i++){
+            for(j = 0; j < n; j++){
+                if((D[i][k] + D[k][j]) < D[i][j]){
+                    P[i][j] = k; // 여기서도 index가 (index - 1)된 것.
+                    D[i][j] = D[i][k] + D[k][j];
+                }
             }
         }
     }
