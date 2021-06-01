@@ -59,7 +59,7 @@ void floyd2(int n, const int W[][5], int D[][5], int P[][5]){
         for(i = 0; i < n; i++){
             for(j = 0; j < n; j++){
                 if((D[i][k] + D[k][j]) < D[i][j]){
-                    P[i][j] = k; // 여기서도 index가 (index - 1)된 것.
+                    P[i][j] = k+1; // 여기서는 index가 (index - 1)이 아닌 index로 사용함.(index에 0표현시 path 함수의 조건문에 예외가 생김)
                     D[i][j] = D[i][k] + D[k][j];
                 }
             }
@@ -68,9 +68,9 @@ void floyd2(int n, const int W[][5], int D[][5], int P[][5]){
 }
 
 void path(int q, int r, int P[][5]){
-    if(P[q][r] != 0){
-        path(q, P[q][r], P);
-        cout << "v" << P[q][r] << '\n';
-        path(P[q][r], r, P);
+    if(P[q-1][r-1] != 0){
+        path(q, P[q-1][r-1], P);
+        cout << "v" << P[q-1][r-1] << '\n';
+        path(P[q-1][r-1], r, P);
     }
 }
