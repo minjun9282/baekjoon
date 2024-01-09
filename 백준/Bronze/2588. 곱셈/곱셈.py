@@ -1,0 +1,10 @@
+a = int(input())
+b = int(input())
+third = a * (b % 10)
+fourth = a * ((b % 100) // 10)
+fifth = a * (b // 100)
+sixth = fifth * 100 + fourth * 10 + third * 1
+print(third)
+print(fourth)
+print(fifth)
+print(sixth)
