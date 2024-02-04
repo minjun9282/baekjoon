@@ -26,7 +26,7 @@ while (num_len != N):
             break
         else:
             i += 1
-    if i == 3:
+    if i == 3: #12131213와 같은 경우 121312로 되돌아가서 좋은 수열을 만드는 과정을 새로 시작해야함.
         impossible_num_list.append(results)
         results = results[:-1]
         num_len = len(results)
