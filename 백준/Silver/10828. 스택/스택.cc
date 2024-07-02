@@ -2,55 +2,72 @@
 #include <string>
 using namespace std;
 
-int main(){
-    int N;
-    cin >> N;
-    int* stack = new int[N];
-    int i = 0;
-    int point = -1;
-    string order;
-    int number;
+int stack[10000];
+int stack_size = 0;
 
+void push(int X){
+        stack[stack_size] = X;
+        stack_size += 1;
+    }
 
-    while(i < N){
-        cin >> order;
-        if(order == "push"){
-            cin >> number;
-            point++;
-            stack[point] = number;
-        }
-        else if(order == "pop"){
-            if(point > -1){
-                cout << stack[point] << '\n';
-                point--;
-            }
-            else{
-                cout << -1 << '\n';
-            }
-        }
-        else if(order == "size"){
-            cout << point + 1 << '\n';
-        }
-        else if(order == "empty"){
-            if(point > -1){
-                cout << 0 << '\n';
-            }
-            else{
-                cout << 1 << '\n';
-            }
-        }
-        else if(order == "top"){
-            if(point > -1){
-                cout << stack[point] << '\n';
-            }
-            else{
-                cout << -1 << '\n';
-            }
-        }
-    i++;
+int pop(){
+    if (stack_size > 0){
+        stack_size -= 1;
+        return stack[stack_size];
+    }
+    else{
+        return -1;
     }
     
-    delete[] stack;
+}
 
+int size(){
+    return stack_size;
+}
+
+int empty(){
+    if (stack_size == 0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+int top(){
+    if (stack_size != 0){
+        return stack[stack_size-1];
+    }
+    else{
+        return -1;
+    }
+}
+
+int main(){
+    int N;
+    int X;
+    string command;
+    
+    cin >> N;
+    for (int i = 0; i < N; i++){
+        cin >> command;
+        if (command == "push"){
+            cin >> X;
+            push(X);
+        }
+        else if (command == "pop"){
+            cout << pop() << '\n';
+        }
+        else if (command == "size"){
+            cout << size() << '\n';
+        }
+        else if (command == "empty"){
+            cout << empty() << '\n';
+        }
+        else{
+            cout << top() << '\n';
+        }
+    }
+    
     return 0;
 }
