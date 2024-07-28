@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-bool c[10];
 int a[10];
 
 void go(int index, int n, int m){
@@ -16,10 +15,8 @@ void go(int index, int n, int m){
         return;
     }
     for (int i = 1; i <= n; i++){
-        c[i] = true;
         a[index] = i;
         go(index + 1, n, m);
-        c[i] = false;
     }
 }
 
