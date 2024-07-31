@@ -1,36 +1,31 @@
-#include <cmath>
+#include <iostream>
 #include <vector>
 #include <algorithm>
-#include <iostream>
-
+#include <cmath>
 using namespace std;
 
-int abs_cal(vector<int> numbers);
-
 int main(){
-    int N, num, max_result;
-    vector<int> numbers;
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int N;
     cin >> N;
-    for(int i = 0; i < N; i++){
-        cin >> num;
-        numbers.push_back(num);
+    vector<int> v(N);
+    for (int i = 0; i < N; i++){
+        cin >> v[i];
     }
-    max_result = abs_cal(numbers);
-    sort(numbers.begin(), numbers.end());
-    do {
-        if(abs_cal(numbers) > max_result){
-            max_result = abs_cal(numbers);
-        };
-    } while(next_permutation(numbers.begin(), numbers.end()));
-    cout << max_result << '\n';
-
+    sort(v.begin(), v.end());
+    int max = 0;
+    do{
+        int temp = 0;
+        for (int i = 0; i < N - 1; i++){
+            temp += abs(v[i] - v[i + 1]);
+        }
+        if (temp > max){
+            max = temp;
+        }
+        
+    } while (next_permutation(v.begin(), v.end()));
+    cout << max << '\n';
+    
     return 0;
-}
-
-int abs_cal(vector<int> numbers){
-    int result = 0;
-    for(int i = 0; i < numbers.size() - 1; i++){
-        result += abs(numbers[i] - numbers[i + 1]);
-    }
-    return result;
 }
