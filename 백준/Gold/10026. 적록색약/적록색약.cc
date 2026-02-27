@@ -8,14 +8,14 @@ int N;
 int dx[4] = { 1, 0, -1, 0 };
 int dy[4] = { 0, 1, 0, -1 };
 
-void dfs(vector<vector<int>>& map, vector<vector<bool>>& visited, int x, int y) {
-	visited[x][y] = true;
+void dfs(vector<vector<int>>& map, vector<vector<bool>>& visited, int y, int x) {
+	visited[y][x] = true;
 	for (int i = 0; i < 4; i++) {
 		int nx = x + dx[i];
 		int ny = y + dy[i];
-		if (nx >= 0 && nx < N && ny >= 0 && ny < N) {
-			if (map[nx][ny] == map[x][y] && visited[nx][ny] != true) {
-				dfs(map, visited, nx, ny);
+		if (ny >= 0 && ny < N && nx >= 0 && nx < N) {
+			if (map[ny][nx] == map[y][x] && visited[ny][nx] != true) {
+				dfs(map, visited, ny, nx);
 			}
 		}
 	}
@@ -44,6 +44,7 @@ int main() {
 		}
 	}
 	int normal = 0, color_blind = 0;
+	// 일반인 먼저
 	visited.resize(N, vector<bool>(N, false));
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
@@ -53,6 +54,7 @@ int main() {
 			}
 		}
 	}
+	//Green color를 Red로 다 바꿔줌
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
 			if (map[i][j] == 1) {
@@ -60,6 +62,7 @@ int main() {
 			}
 		}
 	}
+	//색맹인 사람
 	visited.assign(N, vector<bool>(N, false));
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
