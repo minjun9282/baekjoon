@@ -1,32 +1,40 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    int N;
-    cin >> N;
-    vector<vector<int>> arr(N, vector<int>(3));
-    int i = 0;
-    while(i < N){
-        for(int j = 0; j < 3; j++){
-            cin >> arr[i][j];
-        }
-        i++;
-    }
-    vector<vector<int>> result(N, vector<int>(3));
-    result[0][0] = arr[0][0];
-    result[0][1] = arr[0][1];
-    result[0][2] = arr[0][2];
-    
-    for (int k = 1; k < N; k++){
-        result[k][0] = min(result[k-1][1], result[k-1][2]) + arr[k][0];
-        result[k][1] = min(result[k-1][0], result[k-1][2]) + arr[k][1];
-        result[k][2] = min(result[k-1][0], result[k-1][1]) + arr[k][2];
-    }
-    cout << min({result[N-1][0], result[N-1][1], result[N-1][2]}) << '\n';
-    
-    return 0;
+struct Price {
+	int red;
+	int green;
+	int blue;
+};
+
+struct cumulative_Cost {
+	int use_red;
+	int use_green;
+	int use_blue;
+};
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int N;
+	cin >> N;
+	vector<Price> houses(N);
+	for (int i = 0; i < N; i++) {
+		cin >> houses[i].red >> houses[i].green >> houses[i].blue;
+	}
+
+	vector<cumulative_Cost> dp(N);
+	dp[0].use_red = houses[0].red; dp[0].use_green = houses[0].green; dp[0].use_blue = houses[0].blue;
+	for (int i = 1; i < N; i++) {
+		dp[i].use_red = min(dp[i - 1].use_blue + houses[i].red, dp[i - 1].use_green + houses[i].red);
+		dp[i].use_blue = min(dp[i - 1].use_red + houses[i].blue, dp[i - 1].use_green + houses[i].blue);
+		dp[i].use_green = min(dp[i - 1].use_red + houses[i].green, dp[i - 1].use_blue + houses[i].green);
+	}
+	int min_result = min({ dp[N - 1].use_blue, dp[N - 1].use_green, dp[N - 1].use_red });
+
+	cout << min_result << '\n';
+
+	return 0;
 }
