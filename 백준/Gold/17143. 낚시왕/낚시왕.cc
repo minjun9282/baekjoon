@@ -72,6 +72,7 @@ int main() {
 							int curr_R = i;
 							int curr_C = j;
 							if (curr_dir == 1 || curr_dir == 2) {//방향이 위(1) 아래(2)인경우
+								curr_velo %= (2 * (R - 1));
 								while (curr_velo--) {
 									if (curr_dir == 1) {
 										if (curr_R == 1) {
@@ -94,6 +95,7 @@ int main() {
 								}
 							}
 							else {//방향이 좌우인 경우
+								curr_velo %= (2 * (C - 1));
 								while (curr_velo--) {
 									if (curr_dir == 3) { //오른쪽
 										if (curr_C == C) {
